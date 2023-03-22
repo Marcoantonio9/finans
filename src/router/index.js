@@ -1,25 +1,57 @@
 import { createRouter, createWebHistory } from 'vue-router'
-import HomeView from '../views/HomeView.vue'
+import LoginPage from '../views/LoginPage.vue'
+import UpdatePassword from '../views/UpdatePassword.vue'
+import UseAuthUsers from '../composables/UseAuthUsers'
 
 const routes = [
   {
     path: '/',
-    name: 'home',
-    component: HomeView
+    name: 'Login',
+    component: LoginPage
   },
   {
-    path: '/about',
-    name: 'about',
-    // route level code-splitting
-    // this generates a separate chunk (about.[hash].js) for this route
-    // which is lazy-loaded when the route is visited.
-    component: () => import(/* webpackChunkName: "about" */ '../views/AboutView.vue')
+    path: '/update',
+    name: 'Update',
+    component: UpdatePassword
+  },
+  {
+    path: '/',
+    name: '',
+    component: () => import('../views/Dashboard/DashboardPage.vue'),
+    children: [
+      {
+        path: '/dashboard',
+        name: 'Dashboard',
+        component: () => import('../views/Dashboard/MyFinancesPage.vue')
+      },
+      {
+        path: '/configuracoes',
+        name: 'Config',
+        component: () => import('../views/Dashboard/ConfigPage.vue')
+      }
+    ],
+    meta: {
+      requiresAuth: true
+    }
   }
 ]
 
 const router = createRouter({
   history: createWebHistory(process.env.BASE_URL),
   routes
+})
+
+router.beforeEach((to) => {
+  const { isLoggedIn } = UseAuthUsers()
+  if (to.hash.includes('type=recovery') && to.name !== 'Update') {
+    const accessToken = to.hash.split('&')[0]
+    const token = accessToken.replace('#access_token=', '')
+
+    return { name: 'Update', query: { token } }
+  }
+  if (!isLoggedIn() && to.meta.requiresAuth) {
+    return { name: 'Login' }
+  }
 })
 
 export default router
