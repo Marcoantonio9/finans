@@ -9,13 +9,16 @@
         >
       </div>
       <div class="avatar px-10 flex justify-center items-center gap-2">
-        <span class="text-white">Olá, <strong>{{ user.user_metadata.name }}</strong>!</span>
+        <span class="text-white">Olá, <strong>{{ userProfileName }}</strong>!</span>
         <img src="../../assets/images/avatar.svg" alt="Avatar" class="w-10 border rounded-full px-2 py-2">
       </div>
     </div>
 </template>
 <script>
+import { onMounted } from 'vue'
 import UseAuthUsers from '../../composables/UseAuthUsers'
+import useTransitionsUsers from '@/composables/UseTransitionsUsers'
+import { userProfileName } from '@/utils/index'
 
 export default {
   props: {
@@ -24,9 +27,15 @@ export default {
   },
   setup () {
     const { user } = UseAuthUsers()
+    const { checkIfTheNameHasChanged } = useTransitionsUsers()
+
+    onMounted(() => {
+      checkIfTheNameHasChanged()
+    })
 
     return {
-      user
+      user,
+      userProfileName
     }
   }
 }
