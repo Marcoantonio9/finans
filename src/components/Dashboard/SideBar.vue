@@ -7,23 +7,26 @@
             Finans!
           </span>
         </div>
-        <div class="roudend-md flex flex-col items-center hover:cursor-pointer hover:border">
-          <div class="w-12/12 flex justify-center">
-            <img class="px-3 py-3 w-8/12" src="../../assets/images/graphics.svg" alt="Icone Dinheiro">
+        <router-link to="/dashboard">
+          <div class="roudend-md flex flex-col items-center hover:cursor-pointer hover:border">
+            <div class="w-12/12 flex justify-center">
+              <img class="px-3 py-3 w-8/12" src="../../assets/images/graphics.svg" alt="Icone Dinheiro">
+            </div>
+            <span class="text-white">
+              Finanças
+            </span>
           </div>
-          <span class="text-white">
-            Finanças
-          </span>
-        </div>
-
-        <div class="roudend-md flex flex-col items-center hover:cursor-pointer hover:border">
-          <div class="w-12/12 flex justify-center">
-            <img class="px-3 py-3 w-8/12" src="../../assets/images/config.svg" alt="Icone Ajustes">
+        </router-link>
+        <router-link to="/configuracoes">
+          <div class="roudend-md flex flex-col items-center hover:cursor-pointer hover:border">
+            <div class="w-12/12 flex justify-center">
+              <img class="px-3 py-3 w-8/12" src="../../assets/images/config.svg" alt="Icone Ajustes">
+            </div>
+            <span class="text-white">
+                Ajustes
+            </span>
           </div>
-          <span class="text-white">
-            Ajustes
-          </span>
-        </div>
+        </router-link>
       </div>
 
       <div>
