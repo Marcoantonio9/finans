@@ -47,7 +47,7 @@ export default {
           }))
         },
         email: { required: helpers.withMessage('* Campo obrigatório', required) },
-        password: { required: helpers.withMessage('* Campo obrigatório', required), minLength: helpers.withMessage('Esse campo deve ter no minímo 6 caracteres.', minLength(6)) }
+        password: isLogin.value ? { required: helpers.withMessage('* Campo obrigatório', required) } : { required: helpers.withMessage('* Campo obrigatório', required), minLength: helpers.withMessage('Esse campo deve ter no minímo 6 caracteres.', minLength(6)) }
       }
     })
 
