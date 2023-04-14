@@ -1,6 +1,6 @@
 <template lang="">
   <div class="flex">
-    <div class="h-screen bg-blue-500 w-24 flex flex-col items-center justify-between" v-if="statusSidebar">
+    <div class="h-full md:h-screen bg-blue-500 w-24 flex flex-col items-center justify-between" v-if="statusSidebar">
       <div class="flex flex-col gap-8">
         <div class="roudend-md h-16 flex flex-col justify-center items-center hover:cursor-pointer">
           <span class="text-white text-2xl">
