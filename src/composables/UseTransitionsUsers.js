@@ -1,7 +1,7 @@
 // import { ref } from 'vue'
 import useSupabase from '../lib/supabaseClient'
 import UseAuthUsers from './UseAuthUsers'
-import { dateSelected } from '../utils/index'
+import { dateSelected, userProfileName } from '../utils/index'
 
 export default function useTransitionsUsers () {
   const { supabase } = useSupabase()
@@ -47,8 +47,6 @@ export default function useTransitionsUsers () {
   }
 
   const getList = async () => {
-    // const d1 = '2023-03-09'
-    // const d2 = '2023-03-18'
     const { data, error } = await supabase
       .from('myFinances')
       .select('*')
@@ -59,10 +57,65 @@ export default function useTransitionsUsers () {
     return data
   }
 
+  const configUpdateUser = async (fields) => {
+    const { data, error } = await supabase.auth.updateUser(
+      {
+        email: fields.value.email
+      }
+    )
+
+    if (error) throw error
+    return data
+  }
+
+  const isLoggedChangePassword = async (fields) => {
+    const { data, error } = await supabase.auth.updateUser(
+      {
+        password: fields.value.password
+      }
+    )
+
+    if (error) throw error
+    return data
+  }
+
+  async function updateProfile (fields) {
+    const updates = {
+      id: user.value.id,
+      username: fields.value.name,
+      updated_at: new Date()
+    }
+
+    const { data, error } = await supabase.from('profiles').upsert(updates)
+    if (error) throw error
+    return data
+  }
+
+  async function getProfile () {
+    const { data, error } = await supabase
+      .from('profiles')
+      .select('username')
+      .eq('id', user.value.id)
+      .single()
+    if (error) throw error
+    return data
+  }
+
+  async function checkIfTheNameHasChanged () {
+    const { username } = await getProfile()
+    userProfileName.value = username != null ? username : user.value.user_metadata.name
+    return username
+  }
+
   return {
     register,
     getList,
     update,
-    remove
+    remove,
+    configUpdateUser,
+    updateProfile,
+    getProfile,
+    checkIfTheNameHasChanged,
+    isLoggedChangePassword
   }
 }
