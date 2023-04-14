@@ -55,6 +55,7 @@ export default {
     credentials.name = ''
     credentials.email = ''
     credentials.password = ''
+
     function changeStatusModalResetForm () {
       statusModalResetPassword.value = !statusModalResetPassword.value
       credentials.email = ''
