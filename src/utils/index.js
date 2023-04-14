@@ -17,6 +17,7 @@ const messageCreateAccout = ref(false)
 const statusModalResetPassword = ref(false)
 const statusSaveButton = ref(true)
 const selectedNewFilter = ref(false)
+const userProfileName = ref(null)
 
 export {
   credentials,
@@ -24,5 +25,6 @@ export {
   statusModalResetPassword,
   statusSaveButton,
   dateSelected,
-  selectedNewFilter
+  selectedNewFilter,
+  userProfileName
 }
