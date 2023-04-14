@@ -26,7 +26,7 @@ import { credentials, messageCreateAccout } from '../utils/index'
 import { useToast } from 'vue-toastification'
 import { useRouter } from 'vue-router'
 import { useVuelidate } from '@vuelidate/core'
-import { required, helpers, requiredIf } from '@vuelidate/validators'
+import { required, helpers, requiredIf, minLength } from '@vuelidate/validators'
 
 export default {
   components: {
@@ -47,7 +47,7 @@ export default {
           }))
         },
         email: { required: helpers.withMessage('* Campo obrigatório', required) },
-        password: { required: helpers.withMessage('* Campo obrigatório', required) }
+        password: { required: helpers.withMessage('* Campo obrigatório', required), minLength: helpers.withMessage('Esse campo deve ter no minímo 6 caracteres.', minLength(6)) }
       }
     })
 
