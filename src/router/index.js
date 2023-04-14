@@ -27,7 +27,7 @@ const routes = [
       {
         path: '/configuracoes',
         name: 'Config',
-        component: () => import('../views/Dashboard/ConfigPage.vue')
+        component: () => import('../views/ConfigPage/Config.vue')
       }
     ],
     meta: {
